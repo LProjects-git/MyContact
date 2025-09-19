@@ -1,7 +1,7 @@
 const express = require('express');
 const contact = require('../models/contact');
 const user = require('../models/user');
-const requireAuth = require('../middleware/requireAuth'); 
+const requireAuth = require('../middlewares/requireAuth'); 
 const router = express.Router();
 router.use(requireAuth);
 

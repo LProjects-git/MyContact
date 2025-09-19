@@ -2,7 +2,7 @@ const express = require('express');
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const requireAuth = require('../middleware/requireAuth');
+const requireAuth = require('../middlewares/requireAuth');
 const router = express.Router();
 
 router.get('/protected', requireAuth, async (req, res) => {
