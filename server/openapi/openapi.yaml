@@ -1,0 +1,184 @@
+openapi: 3.0.0
+info:
+  title: MyContacts Auth
+  version: 1.0.0
+  description: Documentation
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+paths:
+  /auth/register:
+    post:
+      summary: Add user
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  example: lina@example.com
+                password:
+                  type: string
+                  example: motdepassefort
+      responses:
+        '201':
+          description: User created
+        '400':
+          description: Email already used
+        '500':
+          description: Server error
+  
+  /auth/login:
+    post:
+      summary: Check user
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  example: lina@example.com
+                password:
+                  type: string
+                  example: motdepassefort
+      responses:
+        '200':
+          description: Connexion successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        '400':
+          description: Incorrect email or password
+        '500':
+          description: Server error
+          
+  /auth/protected:
+    get:
+      summary: Get user info
+      tags:
+        - Auth
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: User info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                  email:
+                    type: string
+        '401':
+          description: Missing token
+        '403':
+          description: Invalid or expireed token
+
+  paths:
+  /contact:
+    get:
+      summary: Get all contacts
+      tags:
+        - Contacts
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Contact list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Contact'
+
+    post:
+      summary: Create a new contact
+      tags:
+        - Contacts
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactInput'
+      responses:
+        '201':
+          description: Contact created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+
+  /contact/{id}:
+    patch:
+      summary: Mettre à jour un contact
+      tags:
+        - Contacts
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactInput'
+      responses:
+        '200':
+          description: Contact updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+
+    delete:
+      summary: Supprimer un contact
+      tags:
+        - Contacts
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Contact deleted
