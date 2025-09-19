@@ -17,7 +17,7 @@ afterAll(async () => {
 
 describe('Auth routes', () => {
   const testUser = {
-    email: 'test1@example.com',
+    email: 'test@example.com',
     password: '123456'
   };
 
