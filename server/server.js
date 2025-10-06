@@ -4,6 +4,11 @@ require("dotenv").config();
 const app = require('./app');
 app.use(express.json());
 
+app.use(cors({
+  origin: 'https://mycontact-front.onrender.com',
+  credentials: true
+}));
+
 const PORT = process.env.PORT || 5000;
 
 mongoose.connect(process.env.DBMONGO)

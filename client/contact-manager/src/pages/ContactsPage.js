@@ -10,6 +10,7 @@ export default function ContactsPage() {
   const navigate = useNavigate();
   const [editingContact, setEditingContact] = useState(null);
   const [contacts, setContacts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const fetchContacts = async () => {
     try {
@@ -37,6 +38,10 @@ export default function ContactsPage() {
     else {
     fetchContacts();}
   }, []);
+
+  const filteredContacts = contacts.filter((c) => {
+    const fullText = `${c.firstName} ${c.lastName} ${c.phone}`;
+    return fullText.toLowerCase().includes(searchTerm.toLowerCase());});
 
   return (
     <div className="container">
@@ -83,8 +88,15 @@ export default function ContactsPage() {
     </button>
   </form>
 )}
+      <input
+        type="text"
+        placeholder="🔍 Rechercher un contact..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="search-input"/>
+
       <ul className="contact-list">
-        {contacts.map((c) => (
+        {filteredContacts.map((c) => (
           <li key={c._id} className="contact-list">
             <strong>{c.firstName}</strong> – {c.lastName} - {c.phone}
             <button onClick={() => setEditingContact(c)} style={{ marginLeft: '1rem' }}>✏️</button>
