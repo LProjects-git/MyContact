@@ -15,6 +15,10 @@ afterAll(async () => {
   await mongoose.connection.close();
 });
 
+beforeEach(async () => {
+  await User.deleteOne({ email: 'test@example.com'});
+});
+
 describe('Auth routes', () => {
   const testUser = {
     email: 'test@example.com',

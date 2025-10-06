@@ -26,8 +26,12 @@ beforeEach(async () => {
   token = res.body.token;
 });
 
-afterEach(async () => {
-  await Contact.deleteMany({});
+beforeEach(async () => {
+  await Contact.deleteOne({
+        firstName: 'Test',
+        lastName: 'Test',
+        phone: '01 02 03 04 05'
+      });
 });
 
   test('POST /contacts → crée un contact', async () => {
@@ -35,13 +39,13 @@ afterEach(async () => {
       .post('/contact')
       .set('Authorization', `Bearer ${token}`)
       .send({
-        firstName: 'Lina',
-        lastName: 'Dddddddd',
-        phone: '+33 6 52 43 69 35'
+        firstName: 'Test',
+        lastName: 'Test',
+        phone: '01 02 03 04 05'
       });
 
     expect(res.statusCode).toBe(201);
-    expect(res.body.contact.firstName).toBe('Lina');
+    expect(res.body.contact.firstName).toBe('Test');
   });
 
   test('GET /contacts → récupère les contacts', async () => {

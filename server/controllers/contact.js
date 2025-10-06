@@ -8,7 +8,7 @@ router.use(requireAuth);
 router.get('/', async (req, res) => {
     try {
         const contacts = await contact.find({user:req.user.userId});
-        res.status(200).json({ contacts });
+        res.status(200).json(contacts);
     } catch (error) {
         res.status(500).json({ message: 'Server error' });
     }
@@ -29,10 +29,11 @@ router.post('/', async (req, res) => {
 router.patch('/:id', async (req, res) => {
     try {
         const { firstName, lastName, phone } = req.body;
-        const updatedContact = await contact.findOneAndUpdate(
-            req.params.id, { firstName, lastName, phone });
+        const updatedContact = await contact.findByIdAndUpdate(
+        req.params.id, { firstName, lastName, phone });
         res.status(200).json({ contact: updatedContact });
         } catch (error) {
+        console.error(error);
         res.status(500).json({ message: 'Server error' });
         }
 });
