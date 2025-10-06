@@ -1,7 +1,11 @@
 import axios from 'axios';
+import axios from 'axios';
+
 const apiClient = axios.create({
-  baseURL: 'http://localhost:5000',
+  baseURL: process.env.REACT_APP_API_URL,
+  withCredentials: true
 });
+export default apiClient;
 
 export const register = (userInfo) =>
   apiClient.post('/auth/register', userInfo);
