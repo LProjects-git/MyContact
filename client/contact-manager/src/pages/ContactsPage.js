@@ -5,7 +5,6 @@ import Logout from '../components/Logout';
 import { useNavigate } from 'react-router-dom';
 import { deleteContact } from '../services/api';
 import { updateContact } from '../services/api';
-import { set } from '../../../../server/app';
 
 export default function ContactsPage() {
   const navigate = useNavigate();
