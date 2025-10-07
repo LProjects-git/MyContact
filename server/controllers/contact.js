@@ -33,7 +33,7 @@ router.patch('/:id', async (req, res) => {
     try {
         const { firstName, lastName, phone } = req.body;
         const updatedContact = await contact.findByIdAndUpdate(
-        req.params.id, { firstName, lastName, phone });
+        req.params.id, { firstName, lastName, phone }, { new: true, runValidators: true });
         res.status(200).json({ contact: updatedContact });
         } catch (error) {
         console.error(error);

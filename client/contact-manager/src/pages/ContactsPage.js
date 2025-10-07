@@ -5,12 +5,14 @@ import Logout from '../components/Logout';
 import { useNavigate } from 'react-router-dom';
 import { deleteContact } from '../services/api';
 import { updateContact } from '../services/api';
+import { set } from '../../../../server/app';
 
 export default function ContactsPage() {
   const navigate = useNavigate();
   const [editingContact, setEditingContact] = useState(null);
   const [contacts, setContacts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [editError, setEditError] = useState('');
 
   const fetchContacts = async () => {
     try {
@@ -53,11 +55,13 @@ export default function ContactsPage() {
         e.preventDefault();
         const token = localStorage.getItem('token');
       try {
+        setEditError('');
         await updateContact(editingContact._id, editingContact, token);
         setEditingContact(null);
         fetchContacts();
       } catch (err) {
-        console.error('Erreur modification:', err);
+        const msg = err.response?.data?.message || 'Erreur inconnue';
+        setEditError(msg);
       }
     }}
     >
@@ -86,6 +90,7 @@ export default function ContactsPage() {
     <button type="button" onClick={() => setEditingContact(null)}>
       ❌
     </button>
+    {editError && <p className="error">{editError}</p>}
   </form>
 )}
       <input
@@ -97,13 +102,16 @@ export default function ContactsPage() {
 
       <ul className="contact-list">
         {filteredContacts.map((c) => (
-          <li key={c._id} className="contact-list">
-            <strong>{c.firstName}</strong> – {c.lastName} - {c.phone}
-            <button onClick={() => setEditingContact(c)} style={{ marginLeft: '1rem' }}>✏️</button>
-            <button onClick={() => handleDelete(c._id)} style={{ marginLeft: '1rem' }}>
-            🗑️
-            </button>
-          </li>
+        <div key={c._id} className="contact-card">
+            <div className="contact-info">
+            <strong>{c.firstName}</strong> – {c.lastName}  
+            <p>{c.phone}</p>
+        </div>
+        <div className="contact-actions">
+            <button onClick={() => setEditingContact(c)}>✏️</button>
+            <button onClick={() => handleDelete(c._id)}>🗑️</button>
+        </div>
+        </div>
         ))}
       </ul>
     </div>

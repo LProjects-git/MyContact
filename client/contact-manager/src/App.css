@@ -126,7 +126,7 @@ input, select, textarea {
 
 .auth-form button {
   padding: 0.8rem;
-  background-color: #007bff;
+  background-color: #085e4a;
   color: white;
   border: none;
   border-radius: 6px;
@@ -135,7 +135,7 @@ input, select, textarea {
 }
 
 .auth-form button:hover {
-  background-color: #0056b3;
+  background-color: #034939;
 }
 
 /*Contacts*/
@@ -145,6 +145,56 @@ input, select, textarea {
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.contact-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  padding: 1rem 1.2rem;
+  margin-bottom: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.contact-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+}
+
+.contact-info {
+  text-align: left;
+}
+
+.contact-info strong {
+  font-size: 1.1rem;
+  color: #085e4a;
+}
+
+.contact-info p {
+  margin: 0.2rem 0 0;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.contact-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.contact-actions button {
+  background-color: #e6f0ff;
+  color: #085e4a;
+  border-radius: 6px;
+  padding: 0.4rem 0.6rem;
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
+}
+
+.contact-actions button:hover {
+  background-color: #cce4ff;
 }
 
 /*Barre de recherche*/
