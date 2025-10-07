@@ -156,3 +156,14 @@ input, select, textarea {
   border-radius: 8px;
   font-size: 1rem;
 }
+
+/*Messages d'erreur*/
+.error {
+  color: #8f080f;
+  background-color: #ffdddd;
+  border: 1px solid #8f080f;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 4px;
+  font-size: 0.95rem;
+}

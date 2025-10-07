@@ -22,6 +22,9 @@ router.post('/', async (req, res) => {
         await newContact.save();
         res.status(201).json({message:"Contact created", contact : newContact});
     }   catch (error) { 
+        if (error.name === 'ValidationError') {
+            return res.status(400).json({ message: error.message });
+        }
         res.status(500).json({ message: 'Server error' , error});
     }
 });

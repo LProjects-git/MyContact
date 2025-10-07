@@ -5,6 +5,7 @@ export default function ContactForm({ onContactCreated }) {
   const [firstName, setfirstName] = useState('');
   const [lastName, setlastName] = useState('');
   const [phone, setPhone] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,10 +15,11 @@ export default function ContactForm({ onContactCreated }) {
       setfirstName('');
       setlastName('');
       setPhone('');
+      setErrorMessage('');
       onContactCreated(); 
     } catch (err) {
-      console.error(err);
-      alert(err.response?.data?.message || 'Error');
+      const msg = err.response?.data?.message || 'Erreur inconnue';
+      setErrorMessage(msg);
     }
   };
 
@@ -41,7 +43,8 @@ return (
         value={phone}
         onChange={(e) => setPhone(e.target.value)}
       />
-      <button type="submit">Add</button>
+      <button type="submit">Add a contact</button>
+      {errorMessage && <p className="error">{errorMessage}</p>}
     </form>
   );
 }
