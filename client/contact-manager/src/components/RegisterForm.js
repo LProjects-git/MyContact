@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { register } from '../services/api';
 import { useNavigate } from 'react-router-dom';
-const navigate = useNavigate();
 
 export default function RegisterForm() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
