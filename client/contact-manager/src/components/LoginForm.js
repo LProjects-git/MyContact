@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { login } from '../services/api';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');
@@ -22,6 +23,7 @@ export default function LoginForm() {
   };
 
   return (
+    <div>
     <form className="auth-form" onSubmit={handleSubmit}>
       <input
         type="email"
@@ -37,5 +39,9 @@ export default function LoginForm() {
       />
       <button type="submit">Login</button>
     </form>
+    <p className="login-link">
+      New here? <Link to="/register">Create an account</Link>
+    </p>
+</div>
   );
 }

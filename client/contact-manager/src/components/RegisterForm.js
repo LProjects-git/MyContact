@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { register } from '../services/api';
+import { useNavigate } from 'react-router-dom';
+const navigate = useNavigate();
 
 export default function RegisterForm() {
   const [email, setEmail] = useState('');
@@ -9,10 +11,11 @@ export default function RegisterForm() {
     e.preventDefault();
     try {
       const res = await register({ email, password });
-      alert(res.data.message);
+      alert('Compte créé avec succès !');
+      navigate('/login');
     } catch (err) {
       console.error(err);
-      alert(err.response?.data?.message || 'Error');
+      alert(err.response?.data?.message || 'Error during registration');
     }
   };
 
